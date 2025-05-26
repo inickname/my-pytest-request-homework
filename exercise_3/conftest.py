@@ -4,7 +4,7 @@ import requests
 from constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
 from faker import Faker
 
-fake = Faker()
+faker = Faker()
 
 
 @pytest.fixture(scope="session")
@@ -25,6 +25,11 @@ def auth_session():
 @pytest.fixture()
 def item_data():
     return {
-        "title": fake.word().capitalize(),
-        "description": fake.sentence(nb_words=10)
+        "title": faker.word().capitalize(),
+        "description": faker.sentence(nb_words=10)
     }
+
+
+@pytest.fixture()
+def limit_number():
+    return faker.random_int(min=1, max=20)
