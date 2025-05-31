@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-from constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
+from config.constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
 from faker import Faker
 
 faker = Faker()
@@ -33,3 +33,11 @@ def item_data():
 @pytest.fixture()
 def limit_number():
     return faker.random_int(min=1, max=20)
+
+
+@pytest.fixture()
+def data_too_long():
+    return {
+        "title": faker.text(max_nb_chars=356),
+        "description": faker.text(max_nb_chars=356)
+    }
