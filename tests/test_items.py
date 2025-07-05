@@ -1,6 +1,6 @@
 import requests
 
-from config.constants import BASE_URL, API_HEADERS
+from src.config.constants import BASE_URL, API_HEADERS
 
 
 class TestItems:

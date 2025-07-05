@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-from config.constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
+from src.config.constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
 from faker import Faker
 
 faker = Faker()
