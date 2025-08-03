@@ -1,4 +1,6 @@
 from src.api.item_api_client import ItemApiClient
+from src.data_models.item_response_data_model import ItemResponseModel
+from src.utils.validate_item_response import validate_response
 
 
 class ItemScenarios:
@@ -13,3 +15,19 @@ class ItemScenarios:
         assert len(items) > 0, "Список items пуст"
         print(f"Получено {len(items)} items id.")
         return items
+
+    def create_item_check_and_delete(self, item_data):
+        """
+        Сценарий: создать booking и сразу же его удалить.
+        Возвращает ID созданного и удаленного booking.
+        """
+        item_data = item_data()
+        created_item_data = self.api_client.create_item(item_data)
+        item_id = created_item_data.json().get("id")
+        assert item_id is not None, f"ID не найден в ответе на создание: {created_item_data}"
+
+        validate_response(created_item_data, ItemResponseModel, 200, item_data.model_dump())
+
+        self.api_client.delete_item(item_id)
+        print(f"Item с ID {item_id} успешно создан и удален.")
+        return item_id
