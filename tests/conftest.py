@@ -1,10 +1,17 @@
 import pytest
 import requests
 
-from src.config.constants import BASE_URL, AUTH_HEADERS, AUTH_DATA, API_HEADERS
+from src.enums.enums import Url, Headers, AuthData
 from faker import Faker
 
+from src.data_models.item_request_data_model import ItemDataModel
+
 faker = Faker()
+
+BASE_URL = Url.BASE_URL.value
+AUTH_HEADERS = Headers.AUTH_HEADERS.value
+AUTH_DATA = AuthData.AUTH_DATA.value
+API_HEADERS = Headers.API_HEADERS.value
 
 
 @pytest.fixture(scope="session")
@@ -24,20 +31,22 @@ def auth_session():
 
 @pytest.fixture()
 def item_data():
-    return {
-        "title": faker.word().capitalize(),
-        "description": faker.sentence(nb_words=10)
-    }
+    def _item_data():
+        item = ItemDataModel.create_item_data()
+        return item
+
+    yield _item_data
+
+
+@pytest.fixture()
+def data_too_long():
+    def _data_too_long():
+        data_too_long = ItemDataModel.creating_too_long_data()
+        return data_too_long
+
+    yield _data_too_long
 
 
 @pytest.fixture()
 def limit_number():
     return faker.random_int(min=1, max=20)
-
-
-@pytest.fixture()
-def data_too_long():
-    return {
-        "title": faker.text(max_nb_chars=356),
-        "description": faker.text(max_nb_chars=356)
-    }
