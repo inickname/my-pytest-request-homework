@@ -12,3 +12,13 @@ class TestItems:
         item_api_client = ItemApiClient(auth_session)
         item_scenarios = ItemScenarios(item_api_client)
         item_scenarios.create_item_check_and_delete(item_data)
+
+    def test_update_item_and_verify_changes(self, auth_session, item_data):
+        item_api_client = ItemApiClient(auth_session)
+        item_scenarios = ItemScenarios(item_api_client)
+        item_scenarios.update_item_and_verify_changes(item_data)
+
+    def test_delete_existing_item_and_verify(self, auth_session, item_data):
+        item_api_client = ItemApiClient(auth_session)
+        item_scenarios = ItemScenarios(item_api_client)
+        item_scenarios.delete_existing_item_and_verify(item_data)

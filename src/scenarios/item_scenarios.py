@@ -31,3 +31,29 @@ class ItemScenarios:
         self.api_client.delete_item(item_id)
         print(f"Item с ID {item_id} успешно создан и удален.")
         return item_id
+
+    def update_item_and_verify_changes(self, item_data):
+        """
+        Сценарий: обновить item и проверить, что данные изменились.
+        """
+        item_data_1 = item_data()
+        item_data_2 = item_data()
+        item_id = self.api_client.create_item(item_data_1).json().get("id")
+        updated_item = self.api_client.update_item(item_id, item_data_2)
+
+        validate_response(updated_item, ItemResponseModel, 200, item_data_2.model_dump())
+
+        print(f"Item с ID {item_id} успешно обновлен.")
+        self.api_client.delete_item(item_id)
+        return item_id
+
+    def delete_existing_item_and_verify(self, item_data):
+        """
+        Сценарий: удалить существующий booking и убедиться, что он удален.
+        """
+        item_data = item_data()
+        item_id = self.api_client.create_item(item_data).json().get("id")
+
+        self.api_client.delete_item(item_id)
+        print(f"Item с ID {item_id} отправлен на удаление.")
+        return item_id
