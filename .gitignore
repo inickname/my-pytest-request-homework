@@ -1,3 +1,4 @@
 .idea/
 __pycache__
 test_create_items_for_me.py
+allure-results
