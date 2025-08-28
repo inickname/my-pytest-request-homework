@@ -1,4 +1,8 @@
 from enum import Enum
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Url(Enum):
@@ -18,8 +22,8 @@ class Headers(Enum):
 
 class AuthData(Enum):
     AUTH_DATA = {
-        "username": "mail1@gmail.com",
-        "password": "Kofper-7mazdo-gaxger",
+        "username": os.getenv("USERNAME"),
+        "password": os.getenv("PASSWORD"),
         "scope": "",
         "client_id": "",
         "client_secret": ""
