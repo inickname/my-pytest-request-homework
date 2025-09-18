@@ -1,7 +1,9 @@
 import pytest
 import requests
 
-from src.enums.enums import Url, Headers, AuthData
+from src.enums.urls import Url
+from src.enums.headers import Headers
+from src.enums.data import AuthData
 from faker import Faker
 
 from src.data_models.item_request_data_model import ItemDataModel
@@ -46,7 +48,6 @@ def data_too_long():
 
     yield _data_too_long
 
-
-@pytest.fixture()
-def limit_number():
-    return faker.random_int(min=1, max=20)
+# @pytest.fixture()
+# def limit_number():
+#     return faker.random_int(min=1, max=20)
