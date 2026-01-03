@@ -1,6 +1,6 @@
 from src.api.item_api_client import ItemApiClient
 from src.data_models.item_response_data_model import ItemResponseModel
-from src.utils.validate_item_response import validate_response
+from src.utils.validate_item_response import ValidateItemResponse
 
 
 class ItemScenarios:
@@ -26,7 +26,7 @@ class ItemScenarios:
         item_id = created_item_data.json().get("id")
         assert item_id is not None, f"ID не найден в ответе на создание: {created_item_data}"
 
-        validate_response(created_item_data, ItemResponseModel, 200, item_data.model_dump())
+        ValidateItemResponse.validate_response(created_item_data, ItemResponseModel, 200, item_data.model_dump())
 
         self.api_client.delete_item(item_id)
         print(f"Item с ID {item_id} успешно создан и удален.")
@@ -41,7 +41,7 @@ class ItemScenarios:
         item_id = self.api_client.create_item(item_data_1).json().get("id")
         updated_item = self.api_client.update_item(item_id, item_data_2)
 
-        validate_response(updated_item, ItemResponseModel, 200, item_data_2.model_dump())
+        ValidateItemResponse.validate_response(updated_item, ItemResponseModel, 200, item_data_2.model_dump())
 
         print(f"Item с ID {item_id} успешно обновлен.")
         self.api_client.delete_item(item_id)
